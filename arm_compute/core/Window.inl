@@ -200,6 +200,7 @@ inline constexpr size_t Window::num_iterations(size_t dimension) const
     return (_dims.at(dimension).end() - _dims.at(dimension).start()) / _dims.at(dimension).step();
 }
 
+
 inline Window Window::split_window(size_t dimension, size_t id, size_t total) const
 {
     ARM_COMPUTE_ERROR_ON(id >= total);
@@ -235,6 +236,57 @@ inline Window Window::split_window(size_t dimension, size_t id, size_t total) co
             end = std::min(end, start + work * step);
 
             out.set(d, Dimension(start, end, step));
+        }
+        else
+        {
+            out.set(d, _dims[d]);
+        }
+    }
+
+    return out;
+}
+
+inline Window Window::split_window_custom(size_t dimension, size_t id, size_t total, int window_start, int window_end, int window_step) const
+{
+    ARM_COMPUTE_ERROR_ON(id >= total);
+    ARM_COMPUTE_ERROR_ON(dimension >= Coordinates::num_max_dimensions);
+    ARM_COMPUTE_UNUSED(window_start, window_end, window_step);
+    
+    Window out;
+
+    for (size_t d = 0; d < Coordinates::num_max_dimensions; ++d)
+    {
+        if (d == dimension)
+        {
+            if (window_start == -1 && window_end == -1 && window_step == -1) { 
+                int       start = _dims[d].start();
+                int       end   = _dims[d].end();
+                const int step  = _dims[d].step();
+
+                const int num_it = num_iterations(d);
+                const int rem    = num_it % total;
+                int       work   = num_it / total;
+
+                int it_start = work * id;
+
+                if(int(id) < rem)
+                {
+                    ++work;
+                    it_start += id;
+                }
+                else
+                {
+                    it_start += rem;
+                }
+
+                start += it_start * step;
+                end = std::min(end, start + work * step);
+                // std::cout << "DEBUG : -- [ " << start << " ], [ " << end << " ], [ " << step << " ] \n";
+                out.set(d, Dimension(start, end, step));
+            }
+            else { 
+                out.set(d, Dimension(window_start, window_end, window_step));
+            }
         }
         else
         {

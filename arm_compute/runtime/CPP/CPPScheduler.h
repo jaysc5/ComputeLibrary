@@ -53,7 +53,8 @@ public:
      * @return The scheduler
      */
     static CPPScheduler &get();
-
+    std::vector<arm_compute::CPUModel> generate_core_thread() override;
+    
     // Inherited functions overridden
     void         set_num_threads(unsigned int num_threads) override;
     void         set_num_threads_with_affinity(unsigned int num_threads, BindFunc func) override;
