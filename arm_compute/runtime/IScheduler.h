@@ -79,7 +79,6 @@ public:
     void add_extract_feature(std::string kernel_ops);
     void reset_extract_feature();
 
-
     // 0 : Default
     // 1 : Gemm_Direct
     // 2 : General
@@ -297,10 +296,9 @@ protected:
     
     //  void(kernel_name, measure_speed)
     std::function<void(std::string, unsigned int)> measure = nullptr; 
-
-    std::vector<std::string> vec_get_convolution_kernel;    
     
     // 0 : Big, 1 : Little, 2 : Mixed
+    std::vector<std::string> vec_get_convolution_kernel;
     std::vector<int> core_select = {0, 1};
     feature_info feature_data = feature_info{};
     bool on_tuner = false;

@@ -298,7 +298,7 @@ inline size_t num_of_elements_in_range(const float start, const float end, const
     return size_t(std::ceil((end - start) / step));
 }
 
-#ifdef ARM_COMPUTE_ASSERTS_ENABLED
+// #ifdef ARM_COMPUTE_ASSERTS_ENABLED
 /** Print consecutive elements to an output stream.
  *
  * @param[out] s             Output stream to print the elements to.
@@ -408,6 +408,6 @@ void print_consecutive_elements(std::ostream      &s,
  * @return The maximum width of the elements.
  */
 int max_consecutive_elements_display_width(std::ostream &s, DataType dt, const uint8_t *ptr, unsigned int n);
-#endif /* ARM_COMPUTE_ASSERTS_ENABLED */
+// #endif /* ARM_COMPUTE_ASSERTS_ENABLED */
 } // namespace arm_compute
 #endif /*ARM_COMPUTE_UTILS_H */
