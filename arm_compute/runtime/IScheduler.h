@@ -64,6 +64,7 @@ public:
     std::vector<int> get_current_frequency();
     void get_set_frequency(int core_pin, int frequency);
     std::vector<int> get_available_frequency(int core_pin);
+    
     std::vector<std::string> get_convolution_kernel();
     void add_convolution_kernel(std::string name);
 
@@ -86,6 +87,14 @@ public:
     void set_conv_method(int method);
     int get_conv_method() const;
 
+    // return: conv Method, index
+    // gemmdirect, gemmgeneral, winograd counts
+    void set_armnn_convolution_selection(std::function<std::pair<int, int>(const std::vector<std::string>&, const std::vector<std::string>&, const std::vector<std::string>&)> callback);
+    std::function<std::pair<int, int>(const std::vector<std::string>&, const std::vector<std::string>&, const std::vector<std::string>&)> conv_method_callback = nullptr;
+    std::function<std::string()> dense_callback = nullptr;
+    
+    void set_get_core_current_processing_time(std::function<void(std::vector<std::pair<int, long long>>)> callback);
+    
     /**
      * @param mode 
      */
@@ -282,6 +291,8 @@ protected:
                                       const CPUInfo    &cpu_info);
 
 protected:
+    std::function<void(std::vector<std::pair<int, long long>>)> get_core_current_processing_time = nullptr;
+    
     std::string cur_kernel_name = "";
     int cur_kernel_uuid = 0;
     

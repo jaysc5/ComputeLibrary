@@ -181,6 +181,14 @@ void IScheduler::reset_window_result() {
     _window_size.clear();
 }
 
+void IScheduler::set_armnn_convolution_selection(std::function<std::pair<int, int>(const std::vector<std::string>&, const std::vector<std::string>&, const std::vector<std::string>&)> callback) { 
+    conv_method_callback = callback;
+}
+
+void IScheduler::set_get_core_current_processing_time(std::function<void(std::vector<std::pair<int, long long>>)> callback) { 
+    get_core_current_processing_time = callback;
+}
+
 CPUInfo &IScheduler::cpu_info()
 {
     return CPUInfo::get();
@@ -220,16 +228,18 @@ void IScheduler::schedule_common(ICPPKernel *kernel, const Hints &hints, const W
 
         if (!kernel->is_parallelisable() || num_threads == 1)
         {
-            ThreadInfo info;
-            info.cpu_info = &cpu_info();
-            if (tensors.empty())
-            {
-                kernel->run(max_window, info);
-            }
-            else
-            {
-                kernel->run_op(tensors, max_window, info);
-            }
+            std::vector<IScheduler::Workload> w(1);
+            w[0] = [&max_window, &kernel, &tensors](const ThreadInfo & info) {
+                    if(tensors.empty())
+                    {
+                        kernel->run(max_window, info);
+                    }
+                    else
+                    {
+                        kernel->run_op(tensors, max_window, info);
+                    }
+                };
+            run_workloads(w);
         }
         else
         {
