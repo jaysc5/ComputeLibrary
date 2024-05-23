@@ -487,6 +487,13 @@ unsigned int CPPScheduler::num_threads() const
 }
 
 #ifndef DOXYGEN_SKIP_THIS
+/**
+ * @brief 
+ * 
+ * 
+ * @param workloads 
+ * @param runMode 
+ */
 void CPPScheduler::run_workloads(std::vector<IScheduler::Workload> &workloads)
 {
     // Mutex to ensure other threads won't interfere with the setup of the current thread's workloads

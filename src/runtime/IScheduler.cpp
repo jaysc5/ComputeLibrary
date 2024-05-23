@@ -334,7 +334,7 @@ std::size_t IScheduler::adjust_num_of_windows(const Window     &window,
             }
         }
         ARM_COMPUTE_LOG_INFO_MSG_WITH_FORMAT_CORE(
-            "%zu dimension is not a suitable dimension to split the workload. Recommended: %zu recommended_split_dim",
+            "%lu dimension is not a suitable dimension to split the workload. Recommended: %zu recommended_split_dim",
             split_dimension, recommended_split_dim);
     }
 

@@ -238,13 +238,13 @@ const GemmImplementation<Top, Tret, OutputStage> *gemm_implementation_list();
 template<typename Top, typename Tret, class OutputStage>
 bool find_implementation(const GemmArgs &args, const OutputStage &os, const GemmImplementation<Top, Tret, OutputStage> * &impl) {
     auto gemms = gemm_implementation_list<Top, Tret, OutputStage>();
-    const GemmConfig *cfg = args._cfg;
+    // const GemmConfig *cfg = args._cfg;
 
     const GemmImplementation<Top, Tret, OutputStage> *saved_impl = nullptr;
     uint64_t best_estimate = 0;
 
-    printf("%d %d %d %d\n", args._Msize, args._Nsize, args._Ksize, args._Ksections);
-
+    //printf("%d %d %d %d\n", args._Msize, args._Nsize, args._Ksize, args._Ksections);
+    arm_compute::NEScheduler::get().get_convolution_kernel();
 
     for (const GemmImplementation<Top, Tret, OutputStage> *i = gemms; i->method != GemmMethod::DEFAULT; i++) {
         /* Skip if this implementation doesn't support these args. */
@@ -253,16 +253,17 @@ bool find_implementation(const GemmArgs &args, const OutputStage &os, const Gemm
         }
 
         /* Skip if a specific method is requested and this is a different one. */
-        if (cfg && cfg->method != GemmMethod::DEFAULT && i->method != cfg->method) {
-            continue;
-        }
+        //if (cfg && cfg->method != GemmMethod::DEFAULT && i->method != cfg->method) {
+        //    continue;
+        //}
 
         /* Skip if a filter is to be applied and it doesn't match. */
-        if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
-            continue;
-        }
+        //if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
+        //    continue;
+        //}
 
         arm_compute::NEScheduler::get().add_extract_feature(i->name);
+        arm_compute::NEScheduler::get().add_convolution_kernel(i->name);
     }
     
     for (const GemmImplementation<Top, Tret, OutputStage> *i = gemms; i->method != GemmMethod::DEFAULT; i++) {
@@ -272,25 +273,25 @@ bool find_implementation(const GemmArgs &args, const OutputStage &os, const Gemm
         }
 
         /* Skip if a specific method is requested and this is a different one. */
-        if (cfg && cfg->method != GemmMethod::DEFAULT && i->method != cfg->method) {
-            continue;
-        }
+        //if (cfg && cfg->method != GemmMethod::DEFAULT && i->method != cfg->method) {
+        //    continue;
+        //}
 
         /* Skip if a filter is to be applied and it doesn't match. */
-        if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
-            continue;
-        }
+        //if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
+        //    continue;
+        //}
 
         /* Test the cycle estimate */
         uint64_t estimate = i->do_cycle_estimate(args, os);
 
         /* Short circuit - if the estimate is zero, return this one immediately. */
-        if (estimate==0) {
-            impl=i;
-            return true;
-        }
+        //if (estimate==0) {
+        //    impl=i;
+        //    return true;
+        //}
 
-        std::cout << "default kernel : " << i->name << "\n";
+        //std::cout << "default kernel : " << i->name << "\n";
         if (arm_compute::NEScheduler::get().get_gemm_kerenlOps() == i->name) { 
             impl = i;
             return true;

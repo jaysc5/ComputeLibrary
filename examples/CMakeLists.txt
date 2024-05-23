@@ -22,29 +22,29 @@
 
 set(EXAMPLE_GRAPH_NAMES
     graph_alexnet
-    graph_deepspeech_v0_4_1
-    graph_edsr
+    #graph_deepspeech_v0_4_1
+    #graph_edsr
     graph_googlenet
-    graph_inception_resnet_v1
-    graph_inception_resnet_v2
-    graph_inception_v3
-    graph_inception_v4
+    #graph_inception_resnet_v1
+    #graph_inception_resnet_v2
+    #graph_inception_v3
+    #graph_inception_v4
     graph_lenet
-    graph_mobilenet_v2
-    graph_mobilenet
-    graph_resnet_v2_50
-    graph_resnet12
-    graph_resnet50
-    graph_resnext50
-    graph_shufflenet
-    graph_squeezenet_v1_1
-    graph_squeezenet
-    graph_srcnn955
-    graph_ssd_mobilenet
-    graph_vgg_vdsr
-    graph_vgg16
-    graph_vgg19
-    graph_yolov3
+    #graph_mobilenet_v2
+    #graph_mobilenet
+    #graph_resnet_v2_50
+    #graph_resnet12
+    #graph_resnet50
+    #graph_resnext50
+    #graph_shufflenet
+    #graph_squeezenet_v1_1
+    #graph_squeezenet
+    #graph_srcnn955
+    #graph_ssd_mobilenet
+    #graph_vgg_vdsr
+    #graph_vgg16
+    #graph_vgg19
+    #graph_yolov3
     PARENT_SCOPE)
 
 set(EXAMPLE_NEON_NAMES
