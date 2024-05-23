@@ -295,8 +295,7 @@ protected:
     
     std::string cur_kernel_name = "";
     int cur_kernel_uuid = 0;
-    std::vector<std::string> vec_get_convolution_kernel;
-        
+    
     // next layer
     std::function<bool(const char*, int)> is_next_kernel = nullptr; 
 
@@ -310,6 +309,7 @@ protected:
     std::function<void(std::string, unsigned int)> measure = nullptr; 
     
     // 0 : Big, 1 : Little, 2 : Mixed
+    std::vector<std::string> vec_get_convolution_kernel;
     std::vector<int> core_select = {0, 1};
     feature_info feature_data = feature_info{};
     bool on_tuner = false;
