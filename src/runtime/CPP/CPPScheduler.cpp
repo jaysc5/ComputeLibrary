@@ -301,7 +301,6 @@ void Thread::worker_thread()
             auto start = std::chrono::high_resolution_clock::now();
             process_workloads(*_workloads, *_feeder, _info);
             _current_finish_time = (long long)(std::chrono::high_resolution_clock::now() - start).count();
-            std::cout << _current_finish_time << std::endl;
             
 #ifndef ARM_COMPUTE_EXCEPTIONS_DISABLED
         }
@@ -488,13 +487,6 @@ unsigned int CPPScheduler::num_threads() const
 }
 
 #ifndef DOXYGEN_SKIP_THIS
-/**
- * @brief 
- * 
- * 
- * @param workloads 
- * @param runMode 
- */
 void CPPScheduler::run_workloads(std::vector<IScheduler::Workload> &workloads)
 {
     // Mutex to ensure other threads won't interfere with the setup of the current thread's workloads

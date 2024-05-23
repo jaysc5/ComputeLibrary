@@ -25,6 +25,8 @@
 #include "arm_gemm.hpp"
 #include "arm_compute/runtime/NEON/NEScheduler.h"
 
+#include "kernel_weight_format.hpp"
+
 #include <cstdint>
 #include <functional>
 
@@ -256,9 +258,9 @@ bool find_implementation(const GemmArgs &args, const OutputStage &os, const Gemm
         //}
 
         /* Skip if a filter is to be applied and it doesn't match. */
-        //if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
-        //    continue;
-        //}
+        if (cfg && cfg->filter != "" && !strstr(i->name, cfg->filter.c_str())) {
+            continue;
+        }
 
         arm_compute::NEScheduler::get().add_extract_feature(i->name);
         arm_compute::NEScheduler::get().add_convolution_kernel(i->name);
