@@ -30,7 +30,7 @@ option(ARM_COMPUTE_WERROR "Enable the -Werror compilation flag" OFF)
 option(ARM_COMPUTE_EXCEPTIONS "Enable C++ exception support" ON)
 option(ARM_COMPUTE_LOGGING "Enable logging" OFF)
 option(ARM_COMPUTE_BUILD_EXAMPLES "Build example programs" ON)
-option(ARM_COMPUTE_BUILD_TESTING "Build tests" OFF)
+option(ARM_COMPUTE_BUILD_TESTING "Build tests" ON)
 option(ARM_COMPUTE_CPPTHREADS "Enable C++11 threads backend" OFF)
 option(ARM_COMPUTE_OPENMP "Enable OpenMP backend" ON)
 
@@ -49,7 +49,7 @@ set(ARM_COMPUTE_ARCH armv8-a CACHE STRING "Architecture to use")
 # Backends
 
 option(ARM_COMPUTE_ENABLE_BF16_VALIDATION "" ON)
-option(ARM_COMPUTE_ENABLE_SVE_VALIDATION "" OFF)
+option(ARM_COMPUTE_ENABLE_SVE_VALIDATION "" ON)
 
 option(ENABLE_NEON "Enable Arm® Neon™ support" ON)
 option(ARM_COMPUTE_CPU_ENABLED "" ON)

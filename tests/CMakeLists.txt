@@ -22,7 +22,7 @@
 
 target_sources(
   arm_compute_validation_framework
-  PRIVATE validation/Validation.cpp
+  PUBLIC validation/Validation.cpp
           validation/Helpers.cpp
           validation/reference/BoundingBoxTransform.cpp
           validation/reference/GEMMReshapeRHSMatrix.cpp

@@ -47,11 +47,11 @@ set(EXAMPLE_GRAPH_NAMES
     #graph_yolov3
     PARENT_SCOPE)
 
-set(EXAMPLE_NEON_NAMES
-    neon_cnn neon_copy_objects
-    neon_gemm_qasymm8
-    neon_gemm_s8_f32
-    neon_permute
-    neon_scale
-    neon_sgemm
-    PARENT_SCOPE)
+#set(EXAMPLE_NEON_NAMES
+    #neon_cnn neon_copy_objects
+    #neon_gemm_qasymm8
+    #neon_gemm_s8_f32
+    #neon_permute
+    #neon_scale
+    #neon_sgemm
+    #PARENT_SCOPE)
